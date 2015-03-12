@@ -6,9 +6,10 @@ _JSONy_ is a JSON parser for Java, a wrapper of [org.json](https://github.com/do
 ```java
 JSON json = new JSON(jsonString);
 
-JSON node = json.get("foo").get("bar").get(0); // get never fails
+JSON node = json.get("foo").get("bar").get(0); // `get` never fails
+Integer value = node.getInt(); // null when the node does not exists or is not an integer
 try {
-    int value = node.getInt(); // fails when the node does not exist or is not int
+    int value2 = node.getIntValue(); // fails when the node does not exist or is not an integer
 } catch (FormatException e) {
     // Error handling
 }

@@ -13,229 +13,229 @@ public class JSONTest {
 	private static final double DELTA = 1.0e-10;
 
 	@Test
-	public void testBasic() {
+	public void testBasic() throws FormatException {
 		JSON json = new JSON(
 				"{\"a\":123,\"b\":\"abc\",\"c\":true,\"d\":[1,2.0],\"e\":{\"x\":999},\"f\":null}");
 
 		JSON a = json.get("a");
-		assertEquals(123, a.getInt());
-		assertEquals(123L, a.getLong());
-		assertEquals(123.0, a.getDouble(), DELTA);
+		assertEquals(123, a.getIntValue());
+		assertEquals(123L, a.getLongValue());
+		assertEquals(123.0, a.getDoubleValue(), DELTA);
 
 		JSON b = json.get("b");
-		assertEquals("abc", b.getString());
+		assertEquals("abc", b.getStringValue());
 
 		JSON c = json.get("c");
-		assertEquals(true, c.getBoolean());
+		assertEquals(true, c.getBooleanValue());
 
 		JSON d = json.get("d");
-		assertEquals(1, d.get(0).getInt());
-		assertEquals(1L, d.get(0).getLong());
-		assertEquals(1.0, d.get(0).getDouble(), DELTA);
-		assertEquals(2, d.get(1).getInt());
-		assertEquals(2L, d.get(1).getLong());
-		assertEquals(2.0, d.get(1).getDouble(), DELTA);
+		assertEquals(1, d.get(0).getIntValue());
+		assertEquals(1L, d.get(0).getLongValue());
+		assertEquals(1.0, d.get(0).getDoubleValue(), DELTA);
+		assertEquals(2, d.get(1).getIntValue());
+		assertEquals(2L, d.get(1).getLongValue());
+		assertEquals(2.0, d.get(1).getDoubleValue(), DELTA);
 
-		List<JSON> dList = d.getList();
-		assertEquals(1, dList.get(0).getInt());
-		assertEquals(1L, dList.get(0).getLong());
-		assertEquals(1.0, dList.get(0).getDouble(), DELTA);
-		assertEquals(2, dList.get(1).getInt());
-		assertEquals(2L, dList.get(1).getLong());
-		assertEquals(2.0, dList.get(1).getDouble(), DELTA);
+		List<JSON> dList = d.getListValue();
+		assertEquals(1, dList.get(0).getIntValue());
+		assertEquals(1L, dList.get(0).getLongValue());
+		assertEquals(1.0, dList.get(0).getDoubleValue(), DELTA);
+		assertEquals(2, dList.get(1).getIntValue());
+		assertEquals(2L, dList.get(1).getLongValue());
+		assertEquals(2.0, dList.get(1).getDoubleValue(), DELTA);
 
 		JSON e = json.get("e");
-		assertEquals(999, e.get("x").getInt());
-		assertEquals(999L, e.get("x").getLong());
-		assertEquals(999.0, e.get("x").getDouble(), DELTA);
+		assertEquals(999, e.get("x").getIntValue());
+		assertEquals(999L, e.get("x").getLongValue());
+		assertEquals(999.0, e.get("x").getDoubleValue(), DELTA);
 
 		JSON f = json.get("f");
-		assertNull(f.getNull());
+		assertNull(f.getNullValue());
 
 		try {
-			a.getString();
+			a.getStringValue();
 			fail();
 		} catch (FormatException exception) {
 		}
 		try {
-			a.getBoolean();
+			a.getBooleanValue();
 			fail();
 		} catch (FormatException exception) {
 		}
 		try {
-			a.getList();
+			a.getListValue();
 			fail();
 		} catch (FormatException exception) {
 		}
 		try {
-			a.getNull();
-			fail();
-		} catch (FormatException exception) {
-		}
-
-		try {
-			b.getInt();
-			fail();
-		} catch (FormatException exception) {
-		}
-		try {
-			b.getLong();
-			fail();
-		} catch (FormatException exception) {
-		}
-		try {
-			b.getDouble();
-			fail();
-		} catch (FormatException exception) {
-		}
-		try {
-			b.getBoolean();
-			fail();
-		} catch (FormatException exception) {
-		}
-		try {
-			b.getList();
-			fail();
-		} catch (FormatException exception) {
-		}
-		try {
-			b.getNull();
+			a.getNullValue();
 			fail();
 		} catch (FormatException exception) {
 		}
 
 		try {
-			c.getInt();
+			b.getIntValue();
 			fail();
 		} catch (FormatException exception) {
 		}
 		try {
-			c.getLong();
+			b.getLongValue();
 			fail();
 		} catch (FormatException exception) {
 		}
 		try {
-			c.getDouble();
+			b.getDoubleValue();
 			fail();
 		} catch (FormatException exception) {
 		}
 		try {
-			c.getString();
+			b.getBooleanValue();
 			fail();
 		} catch (FormatException exception) {
 		}
 		try {
-			c.getList();
+			b.getListValue();
 			fail();
 		} catch (FormatException exception) {
 		}
 		try {
-			c.getNull();
-			fail();
-		} catch (FormatException exception) {
-		}
-
-		try {
-			d.getInt();
-			fail();
-		} catch (FormatException exception) {
-		}
-		try {
-			d.getLong();
-			fail();
-		} catch (FormatException exception) {
-		}
-		try {
-			d.getDouble();
-			fail();
-		} catch (FormatException exception) {
-		}
-		try {
-			d.getString();
-			fail();
-		} catch (FormatException exception) {
-		}
-		try {
-			d.getBoolean();
-			fail();
-		} catch (FormatException exception) {
-		}
-		try {
-			d.getNull();
+			b.getNullValue();
 			fail();
 		} catch (FormatException exception) {
 		}
 
 		try {
-			e.getInt();
+			c.getIntValue();
 			fail();
 		} catch (FormatException exception) {
 		}
 		try {
-			e.getLong();
+			c.getLongValue();
 			fail();
 		} catch (FormatException exception) {
 		}
 		try {
-			e.getDouble();
+			c.getDoubleValue();
 			fail();
 		} catch (FormatException exception) {
 		}
 		try {
-			e.getString();
+			c.getStringValue();
 			fail();
 		} catch (FormatException exception) {
 		}
 		try {
-			e.getBoolean();
+			c.getListValue();
 			fail();
 		} catch (FormatException exception) {
 		}
 		try {
-			e.getList();
-			fail();
-		} catch (FormatException exception) {
-		}
-		try {
-			e.getNull();
+			c.getNullValue();
 			fail();
 		} catch (FormatException exception) {
 		}
 
 		try {
-			f.getInt();
+			d.getIntValue();
 			fail();
 		} catch (FormatException exception) {
 		}
 		try {
-			f.getLong();
+			d.getLongValue();
 			fail();
 		} catch (FormatException exception) {
 		}
 		try {
-			f.getDouble();
+			d.getDoubleValue();
 			fail();
 		} catch (FormatException exception) {
 		}
 		try {
-			f.getString();
+			d.getStringValue();
 			fail();
 		} catch (FormatException exception) {
 		}
 		try {
-			f.getBoolean();
+			d.getBooleanValue();
 			fail();
 		} catch (FormatException exception) {
 		}
 		try {
-			f.getList();
+			d.getNullValue();
+			fail();
+		} catch (FormatException exception) {
+		}
+
+		try {
+			e.getIntValue();
+			fail();
+		} catch (FormatException exception) {
+		}
+		try {
+			e.getLongValue();
+			fail();
+		} catch (FormatException exception) {
+		}
+		try {
+			e.getDoubleValue();
+			fail();
+		} catch (FormatException exception) {
+		}
+		try {
+			e.getStringValue();
+			fail();
+		} catch (FormatException exception) {
+		}
+		try {
+			e.getBooleanValue();
+			fail();
+		} catch (FormatException exception) {
+		}
+		try {
+			e.getListValue();
+			fail();
+		} catch (FormatException exception) {
+		}
+		try {
+			e.getNullValue();
+			fail();
+		} catch (FormatException exception) {
+		}
+
+		try {
+			f.getIntValue();
+			fail();
+		} catch (FormatException exception) {
+		}
+		try {
+			f.getLongValue();
+			fail();
+		} catch (FormatException exception) {
+		}
+		try {
+			f.getDoubleValue();
+			fail();
+		} catch (FormatException exception) {
+		}
+		try {
+			f.getStringValue();
+			fail();
+		} catch (FormatException exception) {
+		}
+		try {
+			f.getBooleanValue();
+			fail();
+		} catch (FormatException exception) {
+		}
+		try {
+			f.getListValue();
 			fail();
 		} catch (FormatException exception) {
 		}
 
 		JSON none = json.get("xxx").get("yyy").get(999);
 		try {
-			none.getInt();
+			none.getIntValue();
 			fail();
 		} catch (FormatException exception) {
 		}

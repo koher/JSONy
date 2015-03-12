@@ -36,7 +36,7 @@ public class JSON {
 		}
 	}
 
-	public JSON(InputStream in) throws IOException {
+	public JSON(InputStream in) throws IOException, FormatException {
 		this(toString(in));
 	}
 
@@ -69,7 +69,7 @@ public class JSON {
 		return new JSON(this, index);
 	}
 
-	private JSON getParent() {
+	private JSON getParent() throws FormatException {
 		if (parent == null) {
 			throw new FormatException();
 		}
@@ -111,7 +111,63 @@ public class JSON {
 		}
 	}
 
-	public String getString() throws FormatException {
+	public String getString() {
+		try {
+			return getStringValue();
+		} catch (FormatException e) {
+			return null;
+		}
+	}
+
+	public Integer getInt() {
+		try {
+			return getIntValue();
+		} catch (FormatException e) {
+			return null;
+		}
+	}
+
+	public Long getLong() {
+		try {
+			return getLongValue();
+		} catch (FormatException e) {
+			return null;
+		}
+	}
+
+	public Double getDouble() {
+		try {
+			return getDoubleValue();
+		} catch (FormatException e) {
+			return null;
+		}
+	}
+
+	public Boolean getBoolean() {
+		try {
+			return getBooleanValue();
+		} catch (FormatException e) {
+			return null;
+		}
+	}
+
+	public List<JSON> getList() {
+		try {
+			return getListValue();
+		} catch (FormatException e) {
+			return null;
+		}
+	}
+
+	public Map<String, JSON> getMap() {
+		try {
+			return getMapValue();
+		} catch (FormatException e) {
+			return null;
+		}
+	}
+
+	public String getStringValue() throws FormatException {
 		try {
 			return name != null ? getParent().getJSONObject().getString(name)
 					: getParent().getJSONArray().getString(index);
@@ -120,7 +176,7 @@ public class JSON {
 		}
 	}
 
-	public int getInt() throws FormatException {
+	public int getIntValue() throws FormatException {
 		try {
 			return name != null ? getParent().getJSONObject().getInt(name)
 					: getParent().getJSONArray().getInt(index);
@@ -129,7 +185,7 @@ public class JSON {
 		}
 	}
 
-	public long getLong() throws FormatException {
+	public long getLongValue() throws FormatException {
 		try {
 			return name != null ? getParent().getJSONObject().getLong(name)
 					: getParent().getJSONArray().getLong(index);
@@ -138,7 +194,7 @@ public class JSON {
 		}
 	}
 
-	public double getDouble() throws FormatException {
+	public double getDoubleValue() throws FormatException {
 		try {
 			return name != null ? getParent().getJSONObject().getDouble(name)
 					: getParent().getJSONArray().getDouble(index);
@@ -147,7 +203,7 @@ public class JSON {
 		}
 	}
 
-	public boolean getBoolean() throws FormatException {
+	public boolean getBooleanValue() throws FormatException {
 		try {
 			return name != null ? getParent().getJSONObject().getBoolean(name)
 					: getParent().getJSONArray().getBoolean(index);
@@ -156,7 +212,7 @@ public class JSON {
 		}
 	}
 
-	public List<JSON> getList() throws FormatException {
+	public List<JSON> getListValue() throws FormatException {
 		int length = getJSONArray().length();
 		List<JSON> result = new ArrayList<JSON>(length);
 		for (int index = 0; index < length; index++) {
@@ -166,7 +222,7 @@ public class JSON {
 		return Collections.unmodifiableList(result);
 	}
 
-	public Map<String, JSON> getMap() throws FormatException {
+	public Map<String, JSON> getMapValue() throws FormatException {
 		Map<String, JSON> result = new HashMap<String, JSON>();
 		for (String name : JSONObject.getNames(getJSONObject())) {
 			result.put(name, get(name));
@@ -175,7 +231,7 @@ public class JSON {
 		return Collections.unmodifiableMap(result);
 	}
 
-	public <T> T getNull() throws FormatException {
+	public <T> T getNullValue() throws FormatException {
 		if (name != null ? getParent().getJSONObject().isNull(name)
 				: getParent().getJSONArray().isNull(index)) {
 			return null;
