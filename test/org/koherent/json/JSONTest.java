@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.fail;
 
 import java.util.List;
+import java.util.Map;
 
 import org.junit.Test;
 import org.koherent.json.JSON.FormatException;
@@ -15,7 +16,7 @@ public class JSONTest {
 	@Test
 	public void testBasic() throws FormatException {
 		JSON json = new JSON(
-				"{\"a\":123,\"b\":\"abc\",\"c\":true,\"d\":[1,2.0],\"e\":{\"x\":999},\"f\":null}");
+				"{\"a\":123,\"b\":\"abc\",\"c\":true,\"d\":[1,2.0],\"e\":{\"x\":999,\"y\":\"xyz\"},\"f\":null}");
 
 		JSON a = json.get("a");
 		assertEquals(123, a.getIntValue());
@@ -48,6 +49,13 @@ public class JSONTest {
 		assertEquals(999, e.get("x").getIntValue());
 		assertEquals(999L, e.get("x").getLongValue());
 		assertEquals(999.0, e.get("x").getDoubleValue(), DELTA);
+		assertEquals("xyz", e.get("y").getStringValue());
+
+		Map<String, JSON> eMap = e.getMapValue();
+		assertEquals(999, eMap.get("x").getIntValue());
+		assertEquals(999L, eMap.get("x").getLongValue());
+		assertEquals(999.0, eMap.get("x").getDoubleValue(), DELTA);
+		assertEquals("xyz", eMap.get("y").getStringValue());
 
 		JSON f = json.get("f");
 		assertNull(f.getNullValue());

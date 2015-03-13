@@ -8,6 +8,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -224,7 +225,8 @@ public class JSON {
 
 	public Map<String, JSON> getMapValue() throws FormatException {
 		Map<String, JSON> result = new HashMap<String, JSON>();
-		for (String name : JSONObject.getNames(getJSONObject())) {
+		for (Iterator<String> names = getJSONObject().keys(); names.hasNext();) {
+			String name = names.next();
 			result.put(name, get(name));
 		}
 
